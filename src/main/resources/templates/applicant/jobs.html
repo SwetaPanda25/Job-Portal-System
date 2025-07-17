@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>JobList</title>
+</head>
+<body>
+<div th:if="${success}" class="toast-popup">
+    <span th:text="${success}"></span>
+</div>
+<div class="back-home-top">
+    <a th:href="@{/home}">
+        <i class="fas fa-house"></i> Home
+    </a>
+</div>
+<div class="center-container">
+<h2>Available Jobs</h2>
+<form>
+    Search: <input type="text" name="keyword" placeholder="title">
+    <button type="submit">Go</button>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</form>
+<table>
+    <tr><th>Title</th><th>Location</th><th>Action</th></tr>
+    <tr th:if="${#lists.isEmpty(jobs)}">
+        <td colspan="3">No jobs found</td>
+    </tr>
+
+    <tr th:each="job : ${jobs}">
+        <td th:text="${job.title}"></td>
+        <td th:text="${job.location}"></td>
+        <td>
+            <form th:action="@{'/applicant/apply/' +${job.id}}" method="post">
+                <button type="submit">Apply</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</div>
+</body>
+</html>

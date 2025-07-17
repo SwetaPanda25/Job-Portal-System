@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Applications</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="back-home-top">
+    <a th:href="@{/home}">
+        <i class="fas fa-house"></i> Home
+    </a>
+</div>
+<div class="center-container">
+<h2>Applicantions for Your Jobs</h2>
+<table>
+    <tbody>
+    <tr><th>Job Title</th><th>Applicant</th><th>Status</th></tr>
+    </tbody>
+    <tr th:if="${#lists.isEmpty(applications)}">
+        <td colspan="3">No applications found.</td>
+    </tr>
+    <tr th:each="app : ${applications}">
+        <td th:text="${app.job.title}"></td>
+        <td th:text="${app.applicant.username}"></td>
+        <td>
+            <form th:action="@{'/employer/applications/update/' + ${app.id}}" method="post">
+                <select name="status">
+                    <option th:value="APPLIED" th:selected="${app.status.name() == 'APPLIED'}">Applied</option>
+                    <option th:value="REVIEWED" th:selected="${app.status.name() == 'REVIEWED'}">Reviewed</option>
+                    <option th:value="SELECTED" th:selected="${app.status.name() == 'SELECTED'}">Selected</option>
+                    <option th:value="REJECTED" th:selected="${app.status.name() == 'REJECTED'}">Rejected</option>
+                </select>
+                <button type="submit">Update</button>
+            </form>
+        </td>
+    </tr>
+</table>
+</div>
+</body>
+</html>

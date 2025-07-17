@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Applications</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="back-home-top">
+    <a th:href="@{/home}">
+        <i class="fas fa-house"></i> Home
+    </a>
+</div>
+<div class="center-container">
+<h2>My Applications</h2>
+<table>
+    <thead>
+    <tr><th>Job Title</th><th>Status</th></tr>
+    </thead>
+    <tbody>
+    <tr th:if="${#lists.isEmpty(applications)}">
+        <td colspan="2">You have not applied to any jobs yet.</td>
+    </tr>
+    <tr th:each="app : ${applications}">
+        <td th:text="${app.job.title}"></td>
+        <td th:text="${app.status}"></td>
+    </tr>
+    </tbody>
+</table>
+</div>
+</body>
+</html>

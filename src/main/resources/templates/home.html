@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+<div class="center-container">
+<h2>Welcome! <span th:text="${#authentication.name}">User</span>!</h2>
+    <!--  Applicant Section -->
+    <div th:if="${#authorization.expression('hasAuthority(''APPLICANT'')')}">
+        <div class="link-box">
+            <a th:href="@{/applicant/jobs}">
+                <i class="fas fa-search"></i> Find Jobs
+            </a>
+        </div>
+        <div class="link-box">
+            <a th:href="@{/applicant/applications}">
+                <i class="fas fa-clipboard-list"></i> My Applications
+            </a>
+        </div>
+    </div>
+
+    <!--  Employer Section -->
+    <div th:if="${#authorization.expression('hasAuthority(''EMPLOYER'')')}">
+        <div class="link-box">
+            <a th:href="@{/employer/jobs}">
+                <i class="fas fa-briefcase"></i> Post/View Jobs
+            </a>
+        </div>
+        <div class="link-box">
+            <a th:href="@{/employer/applications}">
+                <i class="fas fa-users"></i> View Applications
+            </a>
+        </div>
+    </div>
+
+    <!--  Logout -->
+    <form th:action="@{/logout}" method="post">
+        <button type="submit" class="logout-btn">
+            <i class="fas fa-sign-out-alt"></i> Logout
+        </button>
+    </form>
+</div>
+</body>
+</html>

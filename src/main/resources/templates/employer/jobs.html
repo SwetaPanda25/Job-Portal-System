@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>JobList</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="back-home-top">
+    <a th:href="@{/home}">
+        <i class="fas fa-house"></i> Home
+    </a>
+</div>
+<div class="center-container">
+<h2>Your Posted Jobs</h2>
+<a th:href="@{/employer/job/new}">Post a new Job</a><br>
+<table>
+    <tr><th>Title</th><th>Location</th><th>Applicants</th></tr>
+    <tr th:each="job : ${jobs}">
+        <td th:text="${job.title}"></td>
+        <td th:text="${job.location}"></td>
+        <td><a th:href="@{'/employer/applications/' + ${job.id}}">View</a></td>
+    </tr>
+</table>
+</div>
+</body>
+</html>
